@@ -27,7 +27,7 @@ class HomeScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.shopping_cart),
             onPressed: () => Navigator.push(
-              context,
+              context, 
               MaterialPageRoute(
                 builder: (_) => const CartScreen(),
               ),
@@ -35,40 +35,40 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
-        child: FutureBuilder(
-            future: getAllProducts(),
-            builder: (_, AsyncSnapshot<List<Product>> snapshot) {
-              if (!snapshot.hasData) {
-                return const CircularProgressIndicator();
-              }
-              final products = snapshot.data!;
-              return ListView.separated(
-                separatorBuilder: (_, __) => const Divider(thickness: 1),
-                itemCount: products.length,
-                itemBuilder: ((context, index) {
-                  final product = snapshot.data![index];
-                  return ListTile(
-                    title: Text('[title]'),
-                    leading: Image.network(
-                      '[image]',
-                      height: 50,
-                      width: 50,
-                    ),
-                    subtitle: Text('\$price}'),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => ProductDetailScreen(),
-                        ),
-                      );
-                    },
-                  );
-                }),
-              );
-            }),
-      ),
+      // body: Center(
+      //   child: FutureBuilder(
+      //       future: getAllProducts(),
+      //       builder: (_, AsyncSnapshot<List<Product>> snapshot) {
+      //         if (!snapshot.hasData) {
+      //           return const CircularProgressIndicator();
+      //         }
+      //         final products = snapshot.data!;
+      //         return ListView.separated(
+      //           separatorBuilder: (_, __) => const Divider(thickness: 1),
+      //           itemCount: products.length,
+      //           itemBuilder: ((context, index) {
+      //             final product = snapshot.data![index];
+      //             return ListTile(
+      //               title: Text('[title]'),
+      //               leading: Image.network(
+      //                 '[image]',
+      //                 height: 50,
+      //                 width: 50,
+      //               ),
+      //               subtitle: Text('\$price}'),
+      //               onTap: () {
+      //                 Navigator.push(
+      //                   context,
+      //                   MaterialPageRoute(
+      //                     builder: (_) => ProductDetailScreen(),
+      //                   ),
+      //                 );
+      //               },
+      //             );
+      //           }),
+      //         );
+      //       }),
+      // ),
     );
   }
 }

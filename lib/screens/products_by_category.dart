@@ -18,39 +18,39 @@ class ProductsByCategoryScreen extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.red,
       ),
-      body: FutureBuilder(
-        future: getProductsByCategory(categoryName),
-        builder: (BuildContext context, AsyncSnapshot<List<Product>> snapshot) {
-          if (!snapshot.hasData) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          final products = snapshot.data!;
+    //   body: FutureBuilder(
+    //     future: getProductsByCategory(categoryName),
+    //     builder: (BuildContext context, AsyncSnapshot<List<Product>> snapshot) {
+    //       if (!snapshot.hasData) {
+    //         return const Center(child: CircularProgressIndicator());
+    //       }
+    //       final products = snapshot.data!;
 
-          return ListView.separated(
-            separatorBuilder: (_, __) => const Divider(thickness: 1),
-            itemCount: products.length,
-            itemBuilder: ((context, index) {
-              return ListTile(
-                title: Text('[title]'),
-                leading: Image.network(
-                  '[image]',
-                  height: 50,
-                  width: 50,
-                ),
-                subtitle: Text('\$price'),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => ProductDetailScreen(id: productId),
-                    ),
-                  );
-                },
-              );
-            }),
-          );
-        },
-      ),
+    //       return ListView.separated(
+    //         separatorBuilder: (_, __) => const Divider(thickness: 1),
+    //         itemCount: products.length,
+    //         itemBuilder: ((context, index) {
+    //           return ListTile(
+    //             title: Text('[title]'),
+    //             leading: Image.network(
+    //               '[image]',
+    //               height: 50,
+    //               width: 50,
+    //             ),
+    //             subtitle: Text('\$price'),
+    //             onTap: () {
+    //               Navigator.push(
+    //                 context,
+    //                 MaterialPageRoute(
+    //                   builder: (_) => ProductDetailScreen(id: productId),
+    //                 ),
+    //               );
+    //             },
+    //           );
+    //         }),
+    //       );
+    //     },
+    //   ),
     );
   }
 }

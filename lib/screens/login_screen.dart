@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:get_it/get_it.dart';
 import '../services/api_service.dart';
 import 'home.dart';
 
@@ -12,6 +12,8 @@ class LoginScreen extends StatelessWidget {
   final TextEditingController passwordCtrl = TextEditingController(
     text: '83r5^_',
   );
+
+  ApiService get service => GetIt.instance<ApiService>();
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,7 @@ class LoginScreen extends StatelessWidget {
               height: 60,
               child: ElevatedButton(
                 onPressed: () async {
-                  final getToken = await login(
+                  final getToken = await service.login(
                     nameCtrl.text,
                     passwordCtrl.text,
                   );
