@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../models/api_response.dart';
+import '../models/cart.dart';
 import '../models/product.dart';
 
 class ApiService {
@@ -31,7 +31,24 @@ class ApiService {
     }).catchError((error) => print(error));
   }
 
-  
+  Future<Product> getProduct(int id) {
+    return http
+        .get(Uri.parse('$api/products/$id'), headers: headers)
+        .then((data) {
+      var jsonData;
+      if (data.statusCode == 200) {
+        jsonData = json.decode(data.body);
+      }
+      return Product.fromJson(jsonData);
+    }).catchError((error) => print(error));
+  }
+
+  // Future<Cart> updateCart(int userId, int id) {
+  //   return http.put(Uri.parse('$api/products/$id'), headers: headers, body: {
+
+  //   })
+  // }
+
   // Future<bool> getAllCategories( ){
   //   return ;
   // }
