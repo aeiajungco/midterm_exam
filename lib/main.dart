@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:midterm_exam/services/api_service.dart';
 
 import 'screens/login_screen.dart';
 
+void setupLocator() {
+  GetIt.I.registerLazySingleton(() => ApiService());
+}
+
 void main() {
+  setupLocator();
   runApp(const MyApp());
 }
 
