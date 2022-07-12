@@ -1,11 +1,14 @@
+import 'package:get_it/get_it.dart';
 import 'package:midterm_exam/screens/products_by_category.dart';
 import 'package:flutter/material.dart';
 
+import '../models/product.dart';
 import '../services/api_service.dart';
 
 class AllCategoryScreen extends StatelessWidget {
   const AllCategoryScreen({Key? key}) : super(key: key);
 
+  ApiService get service => GetIt.instance<ApiService>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,47 +17,47 @@ class AllCategoryScreen extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.red,
       ),
-      // body: FutureBuilder(
-      //   future: getAllCategories(),
-      //   builder: (BuildContext context, AsyncSnapshot snapshot) {
-      //     if (!snapshot.hasData) {
-      //       return const Center(child: CircularProgressIndicator());
-      //     }
-      //     final categories = snapshot.data;
-      //     return ListView.builder(
-      //         itemCount: categories.length,
-      //         itemBuilder: (context, index) {
-      //           return Card(
-      //             elevation: 2,
-      //             margin: const EdgeInsets.all(15),
-      //             shape: RoundedRectangleBorder(
-      //               borderRadius: BorderRadius.circular(15),
-      //             ),
-      //             child: InkWell(
-      //               onTap: () => Navigator.push(
-      //                 context,
-      //                 MaterialPageRoute(
-      //                   builder: (_) => ProductsByCategoryScreen(
-      //                     categoryName: categoryName,
-      //                   ),
-      //                 ),
-      //               ),
-      //               child: Container(
-      //                 padding: const EdgeInsets.all(40),
-      //                 child: Center(
-      //                   child: Text(
-      //                     categoryName,
-      //                     style: const TextStyle(
-      //                       fontSize: 25,
-      //                     ),
-      //                   ),
-      //                 ),
-      //               ),
-      //             ),
-      //           );
-      //         });
-      //   },
-      // ),
+      body: FutureBuilder<dynamic>(
+        future: service.getAllCategories(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          final categories = snapshot.data;
+          return ListView.builder(
+              itemCount: categories.length,
+              itemBuilder: (context, index) {
+                return Card(
+                  elevation: 2,
+                  margin: const EdgeInsets.all(15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: InkWell(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => ProductsByCategoryScreen(
+                          categoryName: categories[index],
+                        ),
+                      ),
+                    ),
+                    child: Container(
+                      padding: const EdgeInsets.all(40),
+                      child: Center(
+                        child: Text(
+                          categories[index].toString().toUpperCase(),
+                          style: const TextStyle(
+                            fontSize: 25,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              });
+        },
+      ),
     );
   }
 }
