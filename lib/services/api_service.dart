@@ -20,7 +20,7 @@ class ApiService {
 
   Future<List<Product>> getAllProducts() {
     return http.get(Uri.parse('$api/products'), headers: headers).then((data) {
-      final products = <Product>[];
+      var products = <Product>[];
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
         for (var item in jsonData) {
@@ -40,6 +40,38 @@ class ApiService {
         jsonData = json.decode(data.body);
       }
       return Product.fromJson(jsonData);
+    }).catchError((error) => print(error));
+  }
+
+  Future<dynamic> getAllCategories() {
+    return http
+        .get(Uri.parse('$api/products/categories'), headers: headers)
+        .then((data) {
+      var categories = [];
+      if (data.statusCode == 200) {
+        final jsonData = json.decode(data.body);
+
+        for (var item in jsonData) {
+          categories.add(item);
+        }
+      }
+      return categories;
+    }).catchError((error) => print(error));
+  }
+
+  Future<List<Product>> getProductsByCategory(String categoryname) {
+    return http
+        .get(Uri.parse('$api/products/category/$categoryname'),
+            headers: headers)
+        .then((data) {
+      var products = <Product>[];
+      if (data.statusCode == 200) {
+        final jsonData = json.decode(data.body);
+        for (var item in jsonData) {
+          products.add(Product.fromJson(item));
+        }
+      }
+      return products;
     }).catchError((error) => print(error));
   }
 
