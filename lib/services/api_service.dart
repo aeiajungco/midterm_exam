@@ -75,13 +75,44 @@ class ApiService {
     }).catchError((error) => print(error));
   }
 
-  // Future<Cart> updateCart(int userId, int id) {
-  //   return http.put(Uri.parse('$api/products/$id'), headers: headers, body: {
+  Future<Cart> getCart(String userId) {
+    return http
+        .get(Uri.parse('$api/carts/$userId'), headers: headers)
+        .then((data) {
+      var cart = Cart();
+      if (data.statusCode == 200) {
+        final jsonData = json.decode(data.body);
+        cart = Cart.fromJson(jsonData);
+      }
+      return cart;
+    });
+  }
 
-  //   })
-  // }
+  Future<bool> deleteFromCart(String id) {
+    return http
+        .delete(Uri.parse('$api/carts/$id'), headers: headers)
+        .then((data) {
+      if (data.statusCode == 200) {
+        print(data.body);
+      }
+      return true;
+    }).catchError((error) => print(error));
+  }
 
-  // Future<bool> getAllCategories( ){
-  //   return ;
-  // }
+  Future<bool> updateCart(int id, int prodId) {
+    final update = Cart(userId: id, date: DateTime.now(), products: [
+      {'productId': prodId, 'quantity': 1}
+    ]);
+
+    return http
+        .put(Uri.parse('$api/carts/$id'),
+            headers: headers, body: json.encode(update.toJson()))
+        .then((data) {
+      if (data.statusCode == 200) {
+        final jsonData = json.decode(data.body);
+        print(jsonData);
+      }
+      return true;
+    }).catchError((error) => print(error));
+  }
 }

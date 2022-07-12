@@ -11,5 +11,7 @@ class Cart {
 
   Cart({this.id, this.userId, this.date, this.products});
 
+  factory Cart.fromJson(Map<String, dynamic> item) =>
+      _$CartFromJson(item);
   Map<String, dynamic> toJson() => _$CartToJson(this);
 }
