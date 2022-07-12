@@ -65,7 +65,7 @@ class ProductDetailScreen extends StatelessWidget {
                   ),
                   Chip(
                     label: Text(
-                      '[category]',
+                      product.category.toString(),
                       style: const TextStyle(
                         fontSize: 15,
                         color: Colors.white,
@@ -84,7 +84,7 @@ class ProductDetailScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.green,
         onPressed: () async {
-          // await service.updateCart(1, id);
+          await service.updateCart(1, id);
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Product added to cart'),
